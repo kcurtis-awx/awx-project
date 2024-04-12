@@ -1,0 +1,9 @@
+loopback:
+  id: 0
+  ip_address: "10.10.3.1 255.255.255.0"
+
+ospf_networks:
+  - network: "10.10.3.0 0.0.0.255"
+    area: "0"
+  - network: "10.220.0.0 0.0.255.255"
+    area: "0"

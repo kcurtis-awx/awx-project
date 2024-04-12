@@ -1,0 +1,16 @@
+all:
+  children:
+    routers:
+      vars:
+        ansible_network_os: ios
+        ansible_connection: network_cli
+        ansible_user: awx
+        ansible_ssh_pass: maintpc
+        ansible_become: yes  
+        ansible_become_method: enable
+      hosts:
+        C8000v_R1:
+        C8000v_R2:
+        C8000v_R3:
+         
+

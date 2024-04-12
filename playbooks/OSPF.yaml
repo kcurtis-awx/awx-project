@@ -1,0 +1,25 @@
+---
+- name: Configure loopback 0 and OSPF on awx routers
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: Debug OSPF
+      debug:
+          var: ospf_networks
+
+    - name: Configure Loopback Interface
+      cisco.ios.ios_config:
+        lines:
+          - description Loopback{{ loopback.id }} for OSPF
+          - ip address {{ loopback.ip_address }}
+        parents: interface Loopback{{ loopback.id }}
+
+    - name: Configure OSPF
+      cisco.ios.ios_config:
+        lines:
+          - router ospf 1
+          - network "{{ item.network }} area {{ item.area }}"
+        loop: "{{ ospf_networks }}"
+

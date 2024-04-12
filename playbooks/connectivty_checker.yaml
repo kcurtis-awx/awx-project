@@ -1,0 +1,16 @@
+---
+- name: Check connectivity of awx routers
+  hosts: routers
+  gather_facts: no
+
+  tasks:
+    - name: Ping Test
+      cisco.ios.ios_ping:
+        dest: "{{ ansible_host }}"
+        count: 3
+      register: ping_result
+
+    - name: Debug Ping Results
+      debug:
+        msg: "Ping results for {{ inventory_hostname }}: {{ ping_result }}"
+      when: ping_result.packet_loss == '0%'
