@@ -1,0 +1,22 @@
+---
+- name: Configure nginx
+  hosts: awx
+  become: yes  # Ensure you have sudo privileges
+    
+  tasks:
+    - name: Update all packages to the latest version
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install NGINX
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Ensure NGINX is running and enabled
+      ansible.builtin.systemd:
+        name: nginx
+        state: started
+        enabled: yes
+

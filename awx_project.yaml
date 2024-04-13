@@ -12,5 +12,7 @@ all:
         C8000v_R1:
         C8000v_R2:
         C8000v_R3:
-         
+    servers:
+      hosts:
+        awx:
 

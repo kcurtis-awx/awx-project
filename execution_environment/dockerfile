@@ -1,0 +1,5 @@
+FROM quay.io/ansible/ansible-runner:latest
+
+ADD collections /collections
+RUN ansible-galaxy collection install /collections/*.tar.gz
+
