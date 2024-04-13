@@ -1,21 +1,24 @@
 ---
 - name: Configure nginx
   hosts: awx
-    
+
   tasks:
     - name: Update all packages to the latest version
       ansible.builtin.apt:
         update_cache: yes
         upgrade: dist
+      become: true
 
     - name: Install NGINX
       ansible.builtin.apt:
         name: nginx
         state: present
+      become: true
 
     - name: Ensure NGINX is running and enabled
       ansible.builtin.systemd:
         name: nginx
         state: started
         enabled: yes
+      become: true
 
