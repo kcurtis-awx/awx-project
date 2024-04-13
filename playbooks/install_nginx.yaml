@@ -1,6 +1,6 @@
 ---
 - name: Install and Start NGINX
-  hosts: all
+  hosts: awx
   become: yes  # Apply privilege escalation for all tasks in this playbook
   tasks:
     - name: Update apt cache
