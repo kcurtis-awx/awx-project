@@ -1,7 +1,6 @@
 ---
 - name: Configure nginx
   hosts: awx
-  become: yes  # Ensure you have sudo privileges
     
   tasks:
     - name: Update all packages to the latest version
