@@ -1,17 +1,17 @@
 ---
 - name: Configure nginx
   hosts: awx
+  become: true  # This enables privilege escalation for all tasks in the playbook
 
+  tasks:
     - name: Install NGINX
       ansible.builtin.apt:
         name: nginx
         state: present
-      become: true
 
     - name: Ensure NGINX is running and enabled
       ansible.builtin.systemd:
         name: nginx
         state: started
         enabled: yes
-      become: true
 

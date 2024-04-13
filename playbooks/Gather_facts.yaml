@@ -1,0 +1,22 @@
+---
+- name: Check Connectivity and Perform Non-Privileged Tasks on AWX Host
+  hosts: awx
+  gather_facts: true  # Automatically gather facts at the beginning of the play
+
+  tasks:
+    - name: Check connectivity to AWX host
+      ansible.builtin.ping:
+
+    - name: Display gathered facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
+    - name: Check disk space
+      ansible.builtin.shell:
+        cmd: df -h
+      register: disk_space
+
+    - name: Show disk space output
+      ansible.builtin.debug:
+        msg: "{{ disk_space.stdout_lines }}"
+
