@@ -1,0 +1,24 @@
+---
+- name: Remove NGINX from Hosts
+  hosts: awx
+  become: true  # Required to gain root privileges for package removal
+
+  tasks:
+    - name: Remove NGINX and its configuration files
+      ansible.builtin.apt:
+        name: nginx
+        state: absent
+        purge: yes  # Ensures removal of configuration files along with the package
+
+    - name: Verify NGINX is not installed
+      ansible.builtin.shell:
+        cmd: nginx -v
+      register: nginx_version_check
+      ignore_errors: true
+
+    - name: Display result of NGINX version check
+      ansible.builtin.debug:
+        msg: "{{ nginx_version_check.stderr_lines }}"
+      when: nginx_version_check.rc == 0  # Only display if NGINX command succeeds, which it shouldn't
+
+

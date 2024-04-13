@@ -1,17 +1,23 @@
 ---
-- name: Configure nginx
-  hosts: awx
-  become: true  # This enables privilege escalation for all tasks in the playbook
-
+- name: Install and Start NGINX
+  hosts: all
+  become: yes  # Apply privilege escalation for all tasks in this playbook
   tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+      become: true  # Explicitly reiterating 'become' here for clarity
+
     - name: Install NGINX
       ansible.builtin.apt:
         name: nginx
         state: present
+      become: true  # Ensure this task is executed with elevated privileges
 
-    - name: Ensure NGINX is running and enabled
+    - name: Ensure NGINX is enabled and running
       ansible.builtin.systemd:
         name: nginx
         state: started
         enabled: yes
+      become: true  # Necessary to manage systemd units
 
